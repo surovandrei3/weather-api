@@ -6,17 +6,17 @@ namespace weather_api
 {
     public class HttpRequests
     {
-        static readonly HttpClient Client = new HttpClient();
-        
+        private static readonly HttpClient Client = new HttpClient();
+        public static string jsonString { get; set; }
         public async Task Execute()
         {
             try	
             {
                 HttpResponseMessage response = await Client.GetAsync(Config.ApiToken);
                 response.EnsureSuccessStatusCode();
-                string responseBody = await response.Content.ReadAsStringAsync();
-
-                Console.WriteLine(responseBody);
+                jsonString = await response.Content.ReadAsStringAsync();
+                
+                //Console.WriteLine(jsonString);
             }
             catch(HttpRequestException e)
             {
